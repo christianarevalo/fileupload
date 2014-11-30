@@ -10,24 +10,32 @@ any application/architecture.
 
 [1]: https://github.com/blueimp/jQuery-File-Upload
 
+### Project forked
+
+This project was forked from Gargron/fileupload and customized to integrate in my CodeIgniter Projects.
+
 ### Installing
 
 This package is available via Composer:
 
 ```json
 {
+  "repositories":
+      [
+        {
+          "type": "git",
+          "url": "https://github.com/christianarevalo/fileupload.git"
+        }
+      ],
   "require": {
-    "gargron/fileupload": "~1.0.*"
+    "christianarevalo/fileupload": "1.0.*"
   }
 }
 ```
 
 ### Status
 
-The unit test suite covers simple uploads, and the library "works on my machine," as it were. You are welcome to contribute.
-
-You can grep the source code for "TODO" to find things you could help
-finishing.
+The unit test suite covers simple uploads.
 
 ### Usage
 
@@ -66,6 +74,7 @@ If you want you can use the common human readable format for filesizes like "1M"
 
 ```
 $validator = new FileUpload\Validator\Simple("10M", ['image/png', 'image/jpg']);
+$validator = new FileUpload\Validator\FileSize("10M");
 ```
 
 Here is a listing of the possible values (B => B; KB => K; MB => M; GB => G). These values are Binary convention so basing on 1024.
