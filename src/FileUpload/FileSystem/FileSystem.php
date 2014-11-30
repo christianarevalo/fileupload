@@ -18,6 +18,13 @@ interface FileSystem {
   public function isDir($path);
 
   /**
+   * Creates a directory
+   * @param  string  $path
+   * @return boolean
+   */
+  public function mkDir($path);
+
+  /**
    * Is it a previously uploaded file?
    * @param  string  $path
    * @return boolean

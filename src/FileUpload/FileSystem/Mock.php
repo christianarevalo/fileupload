@@ -20,6 +20,13 @@ class Mock implements FileSystem {
   /**
    * @see FileSystem
    */
+  public function mkDir($path) {
+    return mkdir($path, 0700, true);
+  }
+
+  /**
+   * @see FileSystem
+   */
   public function isUploadedFile($path) {
     return true;
   }
