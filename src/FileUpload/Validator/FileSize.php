@@ -3,6 +3,7 @@
 namespace FileUpload\Validator;
 
 use FileUpload\File;
+use FileUpload\Util;
 
 /**
  * Document   : FileSize.php
@@ -33,7 +34,26 @@ class FileSize implements Validator {
    * @param array   $allowed_types
    */
   public function __construct($max_size) {
-    $this->max_size = $max_size;
+    $this->setMaxSize($max_size);
+  }
+
+  /**
+   * Sets the max file size
+   *
+   * @param mixed $max_size
+   *
+   * @throws \Exception if the max_size value is invalid
+   */
+  public function setMaxSize($max_size) {
+    if (is_numeric($max_size)) {
+      $this->max_size = $max_size;
+    } else {
+      $this->max_size = Util::humanReadableToBytes($max_size);
+    }
+
+    if ($this->max_size < 0 || $this->max_size == null) {
+      throw new \Exception('invalid max_size value');
+    }
   }
 
   /**
