@@ -127,6 +127,8 @@ class ImageSize implements Validator {
       $size = $image->getSize();
       $width = $size->getWidth();
       $height = $size->getHeight();
+      $file->width = $width;
+      $file->height = $height;
 
       if ( ! $this->validateMinSize($width, $height) ) {
         $file->error = $this->messages[self::UPLOAD_ERR_MIN_SIZE];
