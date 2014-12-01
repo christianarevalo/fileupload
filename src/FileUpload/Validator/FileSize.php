@@ -26,7 +26,7 @@ class FileSize implements Validator {
    * @var array
    */
   protected $messages = array(
-      self::UPLOAD_ERR_TOO_LARGE => 'file_upload.size.too_large',
+      self::UPLOAD_ERR_TOO_LARGE => 'file_upload.size.too_large'
   );
 
   /**
