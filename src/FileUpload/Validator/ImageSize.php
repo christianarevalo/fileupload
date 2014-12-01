@@ -26,7 +26,7 @@ class ImageSize implements Validator {
    * Min and/or Max allowed image size
    * @var array
    */
-  protected $min_sizes, $max_sizes;
+  protected $min_size, $max_size;
   /**
    * imagine (image factory)
    * @var
@@ -54,8 +54,8 @@ class ImageSize implements Validator {
         $this->imagine = new \Imagine\GD\Imagine();
         break;
     }
-    $this->min_sizes = null;
-    $this->max_sizes = null;
+    $this->min_size = null;
+    $this->max_size = null;
     $this->setSizes($sizes);
   }
 
@@ -67,14 +67,14 @@ class ImageSize implements Validator {
    * @throws \Exception if the max_size value is invalid
    */
   public function setSizes($sizes) {
-    if ( is_array($sizes) && (array_key_exists('min_sizes', $sizes) || array_key_exists('max_sizes', $sizes)) ) {
+    if ( is_array($sizes) && (array_key_exists('min_size', $sizes) || array_key_exists('max_size', $sizes)) ) {
 
-      if ( $this->checkSize('min_sizes', $sizes) ) {
-        $this->min_sizes = $sizes['min_sizes'];
+      if ( $this->checkSize('min_size', $sizes) ) {
+        $this->min_size = $sizes['min_size'];
       }
 
-      if ( $this->checkSize('max_sizes', $sizes) ) {
-        $this->max_sizes = $sizes['max_sizes'];
+      if ( $this->checkSize('max_size', $sizes) ) {
+        $this->max_size = $sizes['max_size'];
       }
 
     } else {
@@ -86,10 +86,10 @@ class ImageSize implements Validator {
     if ( array_key_exists($size, $array) ) {
       $values = $array[$size];
       if ( array_key_exists('width', $values) || array_key_exists('height', $values) ) {
-        $this->checkValue('width', $this->min_sizes);
-        $this->checkValue('height', $this->min_sizes);
+        $this->checkValue('width', $values);
+        $this->checkValue('height', $values);
       } else {
-        throw new \Exception('invalid min_size arguments');
+        throw new \Exception('invalid ' . $size . ' arguments');
       }
       return true;
     }
@@ -148,15 +148,15 @@ class ImageSize implements Validator {
 
   protected function validateMinSize($width, $height) {
 
-    if ( ! is_null($this->min_sizes) ) {
-      if ( array_key_exists('width', $this->min_sizes) ) {
-        if ( $width < $this->min_sizes['width'] ) {
+    if ( ! is_null($this->min_size) ) {
+      if ( array_key_exists('width', $this->min_size) ) {
+        if ( $width < $this->min_size['width'] ) {
           return false;
         }
       }
 
-      if ( array_key_exists('height', $this->min_sizes) ) {
-        if ( $height < $this->min_sizes['height'] ) {
+      if ( array_key_exists('height', $this->min_size) ) {
+        if ( $height < $this->min_size['height'] ) {
           return false;
         }
       }
@@ -167,15 +167,15 @@ class ImageSize implements Validator {
 
   protected function validateMaxSize($width, $height) {
 
-    if ( ! is_null($this->max_sizes) ) {
-      if ( array_key_exists('width', $this->max_sizes) ) {
-        if ( $width > $this->max_sizes['width'] ) {
+    if ( ! is_null($this->max_size) ) {
+      if ( array_key_exists('width', $this->max_size) ) {
+        if ( $width > $this->max_size['width'] ) {
           return false;
         }
       }
 
-      if ( array_key_exists('height', $this->max_sizes) ) {
-        if ( $height > $this->max_sizes['height'] ) {
+      if ( array_key_exists('height', $this->max_size) ) {
+        if ( $height > $this->max_size['height'] ) {
           return false;
         }
       }
