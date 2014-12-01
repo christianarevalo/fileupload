@@ -123,7 +123,7 @@ class ImageSize implements Validator {
    */
   public function validate($tmp_name, File $file, $current_size) {
     try {
-      $image = $this->imagine->open($file->path);
+      $image = $this->imagine->open($tmp_name);
       $size = $image->getSize();
       $width = $size->getWidth();
       $height = $size->getHeight();
