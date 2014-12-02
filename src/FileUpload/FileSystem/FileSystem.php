@@ -81,4 +81,11 @@ interface FileSystem {
    */
   public function getFilesize($path);
 
+  /**
+   * Get file size
+   * @param  string  $path
+   * @return integer
+   */
+  public function getFileInfo($path);
+
 }

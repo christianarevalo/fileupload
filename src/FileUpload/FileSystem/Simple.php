@@ -80,4 +80,10 @@ class Simple implements FileSystem {
     return filesize($path);
   }
 
+  /**
+   * @see FileSystem
+   */
+  public function getFileInfo($path) {
+    return pathinfo($path);
+  }
 }
