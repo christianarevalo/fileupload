@@ -35,13 +35,26 @@ This package is available via Composer:
 
 ### Status
 
-The unit test suite covers simple uploads.
+The unit test suite covers simple uploads, but needs to be updated using the new validators.
+TODO: ImageSizeTest, mkDir in FileSystem
 
 ### Usage
 
 ```php
-// Simple validation (max file size 2MB and only two allowed mime types)
-$validator = new FileUpload\Validator\Simple(1024 * 1024 * 2, ['image/png', 'image/jpg']);
+// Size validation (max file size 2MB and only two allowed mime types)
+$validator = new FileUpload\Validator\FileSize(1024 * 1024 * 2);
+
+// Type validation (only two allowed mime types)
+$validator = new FileUpload\Validator\FileType(['image/png', 'image/jpg']);
+
+// Image size validation (some examples of sizes, you can combine both max_size and min_size)
+$sizes_1 = array('max_size' => array( 'width' => 500 ) );
+$sizes_2 = array('max_size' => array( 'width' => 500, 'height' => 800 ) );
+$sizes_3 = array('min_size' => array( 'height' => 250 ) );
+$sizes_4 = array('min_size' => array( 'width' => 300, 'height' => 300 ) );
+
+// By default it uses imagick (ImageMagick) but you can use GD
+$validator = new FileUpload\Validator\ImageSize($sizes_1);
 
 // Simple path resolver, where uploads will be put
 $pathresolver = new FileUpload\PathResolver\Simple('/my/uploads/dir');
@@ -103,13 +116,31 @@ $fileupload->addCallback('completed', function(FileUpload\File $file) {
 });
 ```
 
-### Extending
+### I18n
 
-The reason why the path resolver, the validators and the file system are
-abstracted, is so you can write your own, fitting your own needs (and also,
-for unit testing). The library is shipped with a bunch of "simple"
-implementations which fit the basic needs. You could write a file system
-implementation that works with Amazon S3, for example.
+For internationalization purposes, this library uses formatted keys for all error messages, i.e. 'file_upload.size.too_large'.
+```
+/*
+ * FileUpload errors
+ */
+$lang['file_upload.error.ini_size'] = 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
+$lang['file_upload.error.form_size'] = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
+$lang['file_upload.error.partial'] = 'The uploaded file was only partially uploaded';
+$lang['file_upload.error.no_file'] = 'No file was uploaded';
+$lang['file_upload.error.no_temp_dir'] = 'Missing a temporary folder';
+$lang['file_upload.error.write'] = 'Failed to write file to disk';
+$lang['file_upload.error.php_extension'] = 'A PHP extension stopped the file upload';
+$lang['file_upload.error.php_size'] = 'The upload file exceeds the post_max_size or the upload_max_filesize directives in php.ini';
+
+/*
+ * FileUpload validator
+ */
+$lang['file_upload.type.not_allowed'] = 'File type not allowed';
+$lang['file_upload.size.too_large'] = 'File size too large';
+$lang['file_upload.image.size.too_small'] = 'Image too small';
+$lang['file_upload.image.size.too_large'] = 'Image too large';
+$lang['file_upload.image.wrong_type'] = 'Not an image';
+```
 
 ### License
 
