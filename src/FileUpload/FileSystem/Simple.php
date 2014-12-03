@@ -86,4 +86,11 @@ class Simple implements FileSystem {
   public function getFileInfo($path) {
     return pathinfo($path);
   }
+
+  /**
+   * @see FileSystem
+   */
+  public function realPath($relative_path) {
+    return $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $relative_path;
+  }
 }

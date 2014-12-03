@@ -88,4 +88,10 @@ interface FileSystem {
    */
   public function getFileInfo($path);
 
+  /**
+   * Get real path
+   * @param  string  $relative_path
+   * @return string
+   */
+  public function realPath($relative_path);
 }
