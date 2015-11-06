@@ -22,9 +22,7 @@ interface FileSystem {
    * @param  string  $path
    * @return boolean
    */
-  public function fileExists($path) {
-    return file_exists($path);
-  }
+  public function fileExists($path);
   
   /**
    * Creates a directory
