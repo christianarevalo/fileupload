@@ -34,6 +34,13 @@ class Mock implements FileSystem {
   /**
    * @see FileSystem
    */
+  public function rmDir($path) {
+	  return rmdir($path);
+  }
+
+  /**
+   * @see FileSystem
+   */
   public function isUploadedFile($path) {
     return true;
   }

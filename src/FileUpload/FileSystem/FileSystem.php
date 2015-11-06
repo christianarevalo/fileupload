@@ -30,7 +30,14 @@ interface FileSystem {
    * @return boolean
    */
   public function mkDir($path);
-
+  
+  /**
+   * Removes a directory
+   * @param  string  $path
+   * @return boolean
+   */
+  public function rmDir($path);
+  
   /**
    * Is it a previously uploaded file?
    * @param  string  $path
