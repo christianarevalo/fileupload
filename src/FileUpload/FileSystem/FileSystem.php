@@ -18,6 +18,15 @@ interface FileSystem {
   public function isDir($path);
 
   /**
+   * file exists?
+   * @param  string  $path
+   * @return boolean
+   */
+  public function fileExists($path) {
+    return file_exists($path);
+  }
+  
+  /**
    * Creates a directory
    * @param  string  $path
    * @return boolean

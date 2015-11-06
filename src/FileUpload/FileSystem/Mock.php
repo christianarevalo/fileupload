@@ -16,6 +16,13 @@ class Mock implements FileSystem {
   public function isDir($path) {
     return is_dir($path);
   }
+  
+  /**
+   * @see FileSystem
+   */
+  public function fileExists($path) {
+    return file_exists($path);
+  }
 
   /**
    * @see FileSystem
